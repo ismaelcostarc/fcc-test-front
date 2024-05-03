@@ -1,6 +1,7 @@
 import type { Address } from './address.type'
 
 export interface Customer {
+  clienteId: string
   cpf: string
   nome: string
   rg: string

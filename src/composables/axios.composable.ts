@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 export async function useAxios<T>(opts: AxiosRequestConfig) {
   const instance = axios.create({
-    baseURL: process.env.VUE_APP_BASE_URL,
+    baseURL: import.meta.env.VITE_BASE_URL,
     timeout: 15000
   })
 

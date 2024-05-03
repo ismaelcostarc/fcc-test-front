@@ -1,4 +1,5 @@
 export interface Address {
+  enderecoId: string
   cep: string
   rua: string
   numero: string
