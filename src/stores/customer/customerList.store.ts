@@ -7,7 +7,8 @@ export const useCustomerListStore = defineStore('customerList', () => {
   const list = ref<Customer[] | undefined>([])
 
   const get = async () => {
-    list.value = (await getCustomerService()).value
+    const { data } = await getCustomerService()
+    list.value = data
   }
 
   return {

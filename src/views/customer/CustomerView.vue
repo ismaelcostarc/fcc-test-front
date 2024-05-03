@@ -21,6 +21,9 @@ const remove = () => {}
 const goBack = () => router.push({ name: 'customerList' })
 const save = async () => {
   await customerStore.edit(customer.value)
+  if (customerStore.statusCode == 200) {
+    router.push({ name: 'customerList' })
+  }
 }
 </script>
 

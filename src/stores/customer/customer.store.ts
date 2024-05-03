@@ -6,19 +6,23 @@ import { editCustomerService } from '@/services/customer/editCustomer.service'
 
 export const useCustomerStore = defineStore('customer', () => {
   const customer = ref<Customer>()
+  const statusCode = ref()
 
   const get = async (id: string) => {
-    customer.value = (await getCustomerByIdService(id)).value
+    const { data } = await getCustomerByIdService(id)
+    customer.value = data
   }
 
   const edit = async (data: Customer) => {
-    await editCustomerService(data)
+    const { status } = await editCustomerService(data)
+    statusCode.value = status
   }
 
   const remove = async (id: string) => {}
 
   return {
     customer,
+    statusCode,
     get,
     edit,
     remove

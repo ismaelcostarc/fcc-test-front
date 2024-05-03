@@ -1,4 +1,4 @@
-import axios, { type AxiosRequestConfig } from 'axios'
+import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios'
 import { ref } from 'vue'
 
 export async function useAxios<T>(opts: AxiosRequestConfig) {
@@ -7,17 +7,18 @@ export async function useAxios<T>(opts: AxiosRequestConfig) {
     timeout: 15000
   })
 
-  const res = ref<T>()
+  const res = ref<AxiosResponse<T>>()
 
   try {
-    const { data } = await instance.request<T>({
+    res.value = await instance.request<T>({
       ...opts
     })
-
-    res.value = data
   } catch (error) {
     // Handle errors
   }
 
-  return res
+  return {
+    data: res.value?.data,
+    status: res.value?.status
+  }
 }
