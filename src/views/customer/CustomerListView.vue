@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import router from '@/router'
-import { useCustomerStore } from '@/stores/customer.store'
+import { useCustomerListStore } from '@/stores/customer/customerList.store'
 
-const customerStore = useCustomerStore()
+const customerListStore = useCustomerListStore()
 
-await customerStore.updateList()
+await customerListStore.get()
 
-const goToCustomer = (id: string) => {
+const goToCustomer = (id?: string) => {
   router.push({
     name: 'customer',
     params: {
@@ -22,13 +22,13 @@ const deleteCustomer = () => {}
     <header></header>
     <table>
       <tr>
-        <th>cpf</th>
+        <th>CPF</th>
         <th>Nome</th>
         <th></th>
         <th></th>
       </tr>
 
-      <tr v-for="customer in customerStore.list" :key="customer.clienteId">
+      <tr v-for="customer in customerListStore.list" :key="customer.clienteId">
         <td>{{ customer.cpf }}</td>
         <td>{{ customer.nome }}</td>
         <th><button @click="goToCustomer(customer.clienteId)">Visualizar</button></th>

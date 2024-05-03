@@ -1,23 +1,27 @@
 <script setup lang="ts">
 import router from '@/router'
-import { useCustomerStore } from '@/stores/customer.store'
+import { useCustomerStore } from '@/stores/customer/customer.store'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const customerStore = useCustomerStore()
-const route = useRoute()
-
-const res = await customerStore.getById(`${route.params.id}`)
-const address = { ...res?.endereco }
-const customer = { ...res, endereco: address }
-
+const { params } = useRoute()
 const viewMode = ref(true)
+
+await customerStore.get(`${params.id}`)
+
+const customer = ref({
+  ...customerStore.customer,
+  endereco: { ...customerStore.customer?.endereco }
+})
 
 const edit = () => (viewMode.value = false)
 const cancel = () => (viewMode.value = true)
 const remove = () => {}
-const update = () => {}
 const goBack = () => router.push({ name: 'customerList' })
+const save = async () => {
+  await customerStore.edit(customer.value)
+}
 </script>
 
 <template>
@@ -37,16 +41,11 @@ const goBack = () => router.push({ name: 'customerList' })
           >Nome:
           <input type="text" v-model="customer.nome" :disabled="viewMode" />
         </label>
-        <button @click="update">Salvar</button>
+        <button @click="save">Salvar</button>
         <button @click="cancel">Cancelar</button>
       </div>
     </header>
     <form>
-      <label
-        >Nome:
-        <input type="text" v-model="customer.nome" :disabled="viewMode" />
-      </label>
-
       <label
         >CPF:
         <input type="text" v-model="customer.cpf" :disabled="viewMode" />
