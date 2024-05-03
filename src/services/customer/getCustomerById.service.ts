@@ -1,4 +1,4 @@
-import { useAxios } from '@/composables/useAxios.composable'
+import { useAxios } from '@/composables/axios.composable'
 import type { Customer } from '@/types/customer.type'
 
 export const getCustomerByIdService = (id: string) => {
