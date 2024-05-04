@@ -1,33 +1,22 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { vMaska } from 'maska'
 import BaseLabel from '@/components/BaseLabel.vue'
 
 const props = defineProps<{
-  mask?: string
   modelValue?: string
   disabled?: boolean
   label?: string
 }>()
 const emit = defineEmits(['update:modelValue'])
-
-const boundObject = reactive({
-  masked: '',
-  unmasked: '',
-  completed: false
-})
 </script>
 
 <template>
   <BaseLabel :label="props.label">
     <input
-      :id="label"
-      type="text"
-      v-maska="boundObject"
-      :data-maska="props.mask"
+      :id="props.label"
+      type="password"
       :value="props.modelValue"
       :disabled="props.disabled"
-      @input="emit('update:modelValue', boundObject.unmasked)"
+      @input="emit('update:modelValue', ($event.target as HTMLInputElement)?.value)"
     />
   </BaseLabel>
 </template>
