@@ -4,6 +4,8 @@ import { useCustomerStore } from '@/stores/customer/customer.store'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import BaseInputText from '@/components/BaseInputText.vue'
+import BaseSelect from '@/components/BaseSelect.vue'
+import STATES from '@/utils/constants/states.constant'
 
 const customerStore = useCustomerStore()
 const { params } = useRoute()
@@ -26,11 +28,11 @@ const save = async () => {
     router.push({ name: 'customerList' })
   }
 }
+
+const states: [string, string][] = STATES.map((elem) => [elem, elem])
 </script>
 
 <template>
-  <the-mask mask="###.###.###-##" type="text" />
-
   <main>
     <header>
       <button @click="goBack">Voltar</button>
@@ -59,7 +61,7 @@ const save = async () => {
 
       <label
         >RG:
-        <input type="text" v-model="customer.rg" :disabled="viewMode" />
+        <BaseInputText mask="#.###.###" v-model="customer.rg" :disabled="viewMode" />
       </label>
 
       <label
@@ -74,7 +76,7 @@ const save = async () => {
 
       <label
         >Estado de expedição:
-        <input type="text" v-model="customer.uf" :disabled="viewMode" />
+        <BaseSelect v-model="customer.uf" :disabled="viewMode" :options="states" />
       </label>
 
       <label
@@ -126,7 +128,7 @@ const save = async () => {
 
       <label
         >Estado:
-        <input type="text" v-model="customer.endereco.uf" :disabled="viewMode" />
+        <BaseSelect v-model="customer.endereco.uf" :disabled="viewMode" :options="states" />
       </label>
     </form>
   </main>
