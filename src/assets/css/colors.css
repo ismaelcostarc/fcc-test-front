@@ -1,17 +1,17 @@
 :root {
   /* Cores principais */
-  --color-primary: #0087c1;
-  --color-secondary: #ffaf31;
+  --color-primary: #3d4952;
+  --color-secondary: #aa3250;
 
   /* Cores de texto e borda */
   --color-text: #2e2e31;
   --color-border: #ababab;
 
   /* Cores de feedback */
-  --color-success: #88c459;
-  --color-error: #f5414f;
-  --color-warning: #ffd137;
-  
+  --color-success: #9cdb6b;
+  --color-error: #ff848e;
+  --color-warning: #eeb600;
+
   /* Outras cores comuns */
   --color-white: #ffffff;
   --color-black: #000000;
@@ -19,8 +19,8 @@
   --color-light-gray: #f5f5f5;
   --color-dark-gray: #333333;
   --color-transparent: transparent;
-  --color-link: #0000EE;
-  
+  --color-link: #0000ee;
+
   /* Cores para destacar */
   --color-accent1: #ffcc00;
   --color-accent2: #33cccc;
