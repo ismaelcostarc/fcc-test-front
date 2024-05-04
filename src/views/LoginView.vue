@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 import user from '@/user.json'
 import router from '@/router'
+import BaseInputText from '@/components/BaseInputText.vue'
+import BaseInputPassword from '@/components/BaseInputPassword.vue'
+import BaseButton from '@/components/BaseButton.vue'
+import BaseAlert from '@/components/BaseAlert.vue'
 
 const email = ref('')
 const password = ref('')
@@ -10,41 +14,31 @@ const isWrong = ref(false)
 
 const login = () => {
   if (email.value === user.email && password.value === user.password) {
-    router.push({ name: 'customersList' })
+    router.push({ name: 'customerList' })
   } else isWrong.value = true
 }
 </script>
 
 <template>
-  <main>
-    <form @submit.prevent="login">
-      <label>
-        E-mail:
-        <input type="text" v-model="email" />
-      </label>
+  <form @submit.prevent="login">
+    <BaseInputText v-model="email" label="E-mail:" />
+    <BaseInputPassword v-model="password" label="Senha:" />
 
-      <label>
-        Senha:
-        <input type="password" v-model="password" />
-      </label>
+    <BaseButton @click="login">Entrar</BaseButton>
 
-      <button type="submit">Entrar</button>
-
-      <div v-if="isWrong">
-        O e-mail e senha estão incorretos. Confira os dados e tente novamente.
-      </div>
-    </form>
-  </main>
+    <BaseAlert v-if="isWrong" type="error">
+      O e-mail e senha estão incorretos.<br />
+      Confira os dados e tente novamente.
+    </BaseAlert>
+  </form>
 </template>
 
-<style>
+<style scoped>
 form {
   display: flex;
   flex-direction: column;
-  gap: 2p;
-  width: 300px;
-  padding: 300px;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 1em;
 }
 </style>
