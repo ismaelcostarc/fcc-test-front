@@ -6,7 +6,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'login',
-      component: () => import('../views/LoginView.vue')
+      component: () => import('../views/LoginView.vue'),
+      meta: {
+        layout: 'Login'
+      }
     },
     {
       path: '/customer/list',
@@ -22,6 +25,10 @@ const router = createRouter({
       path: '/customer/create',
       name: 'customerCreate',
       component: () => import('../views/customer/CustomerCreateView.vue')
+    },
+    {
+      path: '/:pathMatch(.*)',
+      component: () => import('../views/PageNotFoundView.vue')
     }
   ]
 })
