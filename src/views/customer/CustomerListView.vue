@@ -6,7 +6,7 @@ const customerListStore = useCustomerListStore()
 
 await customerListStore.get()
 
-const goToCustomer = (id?: string) => {
+const goCustomer = (id?: string) => {
   router.push({
     name: 'customer',
     params: {
@@ -14,12 +14,17 @@ const goToCustomer = (id?: string) => {
     }
   })
 }
+const goCreate = () => {
+  router.push({ name: 'customerCreate' })
+}
 const deleteCustomer = () => {}
 </script>
 
 <template>
   <main>
-    <header></header>
+    <header>
+      <button @click="goCreate">Criar novo</button>
+    </header>
     <table>
       <tr>
         <th>CPF</th>
@@ -31,7 +36,7 @@ const deleteCustomer = () => {}
       <tr v-for="customer in customerListStore.list" :key="customer.clienteId">
         <td>{{ customer.cpf }}</td>
         <td>{{ customer.nome }}</td>
-        <th><button @click="goToCustomer(customer.clienteId)">Visualizar</button></th>
+        <th><button @click="goCustomer(customer.clienteId)">Visualizar</button></th>
         <th><button @click="deleteCustomer()">Excluir</button></th>
       </tr>
     </table>

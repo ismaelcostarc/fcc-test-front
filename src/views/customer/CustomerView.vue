@@ -3,6 +3,7 @@ import router from '@/router'
 import { useCustomerStore } from '@/stores/customer/customer.store'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import BaseInputText from '@/components/BaseInputText.vue'
 
 const customerStore = useCustomerStore()
 const { params } = useRoute()
@@ -28,6 +29,8 @@ const save = async () => {
 </script>
 
 <template>
+  <the-mask mask="###.###.###-##" type="text" />
+
   <main>
     <header>
       <button @click="goBack">Voltar</button>
@@ -51,7 +54,7 @@ const save = async () => {
     <form>
       <label
         >CPF:
-        <input type="text" v-model="customer.cpf" :disabled="viewMode" />
+        <BaseInputText mask="###.###.###-##" v-model="customer.cpf" :disabled="viewMode" />
       </label>
 
       <label
