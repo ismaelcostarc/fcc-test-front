@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Customer } from '@/types/customer.type'
 import BaseTable from '@/components/BaseTable.vue'
+import { computed } from 'vue'
 
 const props = defineProps<{
   customerList?: Customer[]
@@ -9,9 +10,11 @@ const props = defineProps<{
 const emit = defineEmits(['goCustomer', 'deleteCustomer'])
 
 const headers = ['CPF', 'Nome']
-const data = props.customerList?.map((elem) => {
-  return [elem.cpf, elem.nome, elem.clienteId]
-})
+const data = computed(() =>
+  props.customerList?.map((elem) => {
+    return [elem.cpf, elem.nome, elem.clienteId]
+  })
+)
 const actions: [string, string][] = [
   ['Visualizar', 'view-item'],
   ['Excluir', 'delete-item']
