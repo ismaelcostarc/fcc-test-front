@@ -63,6 +63,7 @@ td {
 }
 
 th {
+  border: 1px solid var(--color-light-gray);
   padding: 0.75em;
   font-weight: bold;
   background-color: var(--color-light-gray);

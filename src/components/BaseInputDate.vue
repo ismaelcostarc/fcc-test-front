@@ -35,6 +35,14 @@ const handleInput = (event: Event) => {
 
 <style scoped>
 input {
-  padding: 0.5em;
+  height: 2em;
+  font-weight: 400;
+}
+
+input:disabled {
+  color: var(--color-black);
+  border: 2px solid transparent;
+  background-color: transparent;
+  font-weight: 500;
 }
 </style>

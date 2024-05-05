@@ -24,6 +24,17 @@ const onChange = (event: Event) => {
 
 <style scoped>
 select {
-  padding: 0.5em;
+  height: 2em;
+  font-weight: 400;
+}
+
+select:disabled {
+  color: var(--color-black);
+  border: 2px solid transparent;
+  background-color: transparent;
+  font-weight: 500;
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
 }
 </style>
