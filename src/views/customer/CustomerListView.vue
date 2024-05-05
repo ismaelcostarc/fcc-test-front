@@ -3,8 +3,14 @@ import BaseButton from '@/components/BaseButton.vue'
 import router from '@/router'
 import { useCustomerListStore } from '@/stores/customer/customerList.store'
 import CustomerTable from '@/components/CustomerTable.vue'
+import CustomerModalDelete from '@/components/CustomerModalDelete.vue'
+import { useModal } from '@/composables/modal.composable'
+import { ref } from 'vue'
 
+const modal = useModal()
 const customerListStore = useCustomerListStore()
+
+const customerToDelete = ref()
 
 await customerListStore.get()
 
@@ -19,7 +25,15 @@ const goCustomer = (id?: string) => {
 const goCreate = () => {
   router.push({ name: 'customerCreate' })
 }
-const deleteCustomer = (id?: string) => {}
+const showDeleteModal = (id?: string) => {
+  customerToDelete.value = id
+  modal.showModal()
+}
+
+const deleteCustomer = () => {
+  modal.closeModal()
+  customerListStore.remove(customerToDelete.value)
+}
 </script>
 
 <template>
@@ -31,9 +45,15 @@ const deleteCustomer = (id?: string) => {}
     <CustomerTable
       :customer-list="customerListStore.list"
       @go-customer="goCustomer"
-      @delete-customer="deleteCustomer"
+      @delete-customer="showDeleteModal"
     />
   </main>
+
+  <CustomerModalDelete
+    v-if="modal.modalIsVisible.value"
+    @cancel="modal.closeModal"
+    @delete="deleteCustomer"
+  />
 </template>
 
 <style scoped>

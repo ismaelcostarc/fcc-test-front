@@ -13,10 +13,10 @@ const customer = reactive({
   cpf: '',
   nome: '',
   rg: '',
-  dataExpedicao: '02/03/2018 00:00:00',
+  dataExpedicao: '2018-02-10T00:00:00',
   orgaoExpedicao: '',
   uf: '',
-  dataNascimento: '02/03/1990 00:00:00',
+  dataNascimento: '1990-02-10T00:00:00',
   sexo: '',
   estadoCivil: '',
   endereco: {

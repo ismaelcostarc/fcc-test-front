@@ -33,8 +33,8 @@ select:disabled {
   border: 2px solid transparent;
   background-color: transparent;
   font-weight: 500;
-  -moz-appearance: none; /* Firefox */
-  -webkit-appearance: none; /* Safari and Chrome */
+  -moz-appearance: none;
+  -webkit-appearance: none;
   appearance: none;
 }
 </style>
