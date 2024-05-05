@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { Customer } from '@/types/customer.type'
 import { getCustomerService } from '@/services/customer/getCustomer.service'
 import { deleteCustomerService } from '@/services/customer/deleteCustomer.service'
+import { FilterOptions } from '@/utils/enums.utils'
 
 export const useCustomerListStore = defineStore('customerList', () => {
   const list = ref<Customer[] | undefined>([])
@@ -19,9 +20,31 @@ export const useCustomerListStore = defineStore('customerList', () => {
     }
   }
 
+  const filterBy = ref(FilterOptions.NAME)
+  const searchFor = ref('')
+
+  watch(
+    () => searchFor.value,
+    async (value) => {
+      if (!value) {
+        await get()
+      }
+
+      if (filterBy.value === FilterOptions.NAME) {
+        list.value = list.value?.filter((elem) => elem.nome?.includes(value))
+      }
+
+      if (filterBy.value === FilterOptions.CPF) {
+        list.value = list.value?.filter((elem) => elem.cpf?.includes(value))
+      }
+    }
+  )
+
   return {
     list,
     get,
-    remove
+    remove,
+    filterBy,
+    searchFor
   }
 })

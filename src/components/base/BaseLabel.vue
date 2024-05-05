@@ -6,7 +6,7 @@ const props = defineProps<{
 
 <template>
   <div class="container">
-    <label :for="props.label">{{ props.label }}</label>
+    <label :for="props.label" v-if="props.label">{{ props.label }}</label>
     <slot />
   </div>
 </template>

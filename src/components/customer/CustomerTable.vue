@@ -2,6 +2,7 @@
 import type { Customer } from '@/types/customer.type'
 import BaseTable from '@/components/base/BaseTable.vue'
 import { computed } from 'vue'
+import { formatCPF } from '@/utils/functions.utils'
 
 const props = defineProps<{
   customerList?: Customer[]
@@ -12,7 +13,7 @@ const emit = defineEmits(['goCustomer', 'deleteCustomer'])
 const headers = ['CPF', 'Nome']
 const data = computed(() =>
   props.customerList?.map((elem) => {
-    return [elem.cpf, elem.nome, elem.clienteId]
+    return [formatCPF(elem.cpf ?? ''), elem.nome, elem.clienteId]
   })
 )
 const actions: [string, string][] = [

@@ -1,11 +1,11 @@
 export const objectHasEmptyFields = (obj: object) => {
-  for (const chave in obj) {
+  for (const key in obj) {
     if (
-      Object.prototype.hasOwnProperty.call(obj, chave) &&
+      Object.prototype.hasOwnProperty.call(obj, key) &&
       // @ts-ignore
-      typeof obj[chave] === 'string' &&
+      typeof obj[key] === 'string' &&
       // @ts-ignore
-      obj[chave].trim() === ''
+      obj[key].trim() === ''
     ) {
       return true
     }
@@ -41,4 +41,12 @@ export const isDateEqualToOrBeforeToday = (date: Date) => {
   today.setHours(0, 0, 0, 0)
 
   return date <= today
+}
+
+export const formatCPF = (cpf: string) => {
+  if (cpf.length !== 11) {
+    return cpf
+  }
+
+  return cpf.slice(0, 3) + '.' + cpf.slice(3, 6) + '.' + cpf.slice(6, 9) + '-' + cpf.slice(9)
 }

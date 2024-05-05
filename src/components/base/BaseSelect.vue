@@ -32,8 +32,9 @@ const onChange = (event: Event) => {
 
 <style scoped>
 select {
-  height: 2em;
+  min-height: 2.3em;
   font-weight: 400;
+  padding: 0 0.5em;
 }
 
 select:disabled {

@@ -48,7 +48,10 @@ const save = async () => {
     <header>
       <BaseButton @click="goBack" type="cancel">Voltar</BaseButton>
 
-      <BaseButton @click="save">Salvar</BaseButton>
+      <div>
+        <BaseButton @click="save">Salvar</BaseButton>
+        <div v-if="hasEmptyFields">Confira se todos os campos estão preenchidos corretamente</div>
+      </div>
     </header>
 
     <CustomerForm v-model="customer" :show-errors="hasEmptyFields" />

@@ -38,12 +38,10 @@ const deleteCustomer = () => {
   customerListStore.remove(customerToDelete.value)
 }
 
-const filterOptions: [string, string][] = [
-  [FilterOptions.NAME, 'Nome'],
-  [FilterOptions.CPF, 'CPF']
+const options: [string, string][] = [
+  ['Nome', FilterOptions.NAME],
+  ['CPF', FilterOptions.CPF]
 ]
-const filterBy = ref(FilterOptions.NAME)
-const searchFor = ref('')
 </script>
 
 <template>
@@ -52,10 +50,18 @@ const searchFor = ref('')
       <BaseButton @click="goCreate">Criar novo</BaseButton>
     </header>
 
-    <div>
+    <div class="filter__container">
       <div>Filtrar por</div>
-      <BaseSelect :options="filterOptions" v-model="filterBy" />
-      <BaseInputText v-model="searchFor" />
+      <BaseSelect :options="options" v-model="customerListStore.filterBy" />
+
+      <BaseInputText
+        v-model="customerListStore.searchFor"
+        size="full"
+        mask="###.###.###-##"
+        v-if="customerListStore.filterBy === FilterOptions.CPF"
+      />
+
+      <BaseInputText v-model="customerListStore.searchFor" size="full" v-else />
     </div>
 
     <CustomerTable
@@ -84,5 +90,17 @@ main {
 header {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.filter__container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.filter__container > div {
+  font-size: var(--font-size-sm);
 }
 </style>
