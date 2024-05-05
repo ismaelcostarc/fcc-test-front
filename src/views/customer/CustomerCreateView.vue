@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import router from '@/router'
 import { addCustomerService } from '@/services/customer/addCustomer.service'
-import { ref } from 'vue'
+import { reactive } from 'vue'
 
-const customer = ref({
+const customer = reactive({
   cpf: '',
   nome: '',
   rg: '',
@@ -26,7 +26,7 @@ const customer = ref({
 
 const goBack = () => router.push({ name: 'customerList' })
 const save = async () => {
-  const { status } = await addCustomerService(customer.value)
+  const { status } = await addCustomerService(customer)
   if (status == 200) {
     router.push({ name: 'customerList' })
   }
@@ -126,11 +126,11 @@ const save = async () => {
   </main>
 </template>
 
-<style>
+<style scoped>
 form {
   display: flex;
   flex-direction: column;
-  gap: 2p;
+  gap: 2em;
   width: 500px;
   padding: 100px;
   justify-content: center;

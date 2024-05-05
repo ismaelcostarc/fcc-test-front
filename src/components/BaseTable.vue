@@ -10,9 +10,6 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['action'])
-const popUpCellId = ref('')
-
-const showPopup = (id: string) => (popUpCellId.value = id)
 </script>
 
 <template>

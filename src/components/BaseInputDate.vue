@@ -5,12 +5,13 @@ import BaseLabel from '@/components/BaseLabel.vue'
 const props = defineProps<{
   modelValue?: string
   disabled?: boolean
+  label?: string
 }>()
 const emit = defineEmits(['update:modelValue'])
 
 const formatedDate = computed(() => {
-  const date = props.modelValue ? new Date(props.modelValue) : Date.now
-  return date.toString().replace(/T.*/, '').split('-').join('-')
+  const date = new Date(`${props.modelValue}`)
+  return date.toLocaleDateString().split('/').reverse().join('-')
 })
 
 const handleInput = (event: Event) => {
@@ -21,5 +22,19 @@ const handleInput = (event: Event) => {
 </script>
 
 <template>
-  <input type="date" :value="formatedDate" :disabled="props.disabled" @input="handleInput" />
+  <BaseLabel :label="props.label">
+    <input
+      type="date"
+      :id="props.label"
+      :value="formatedDate"
+      :disabled="props.disabled"
+      @input="handleInput"
+    />
+  </BaseLabel>
 </template>
+
+<style scoped>
+input {
+  padding: 0.5em;
+}
+</style>

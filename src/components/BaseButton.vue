@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    type?: 'default' | 'cancel' | 'link'
+    type?: 'default' | 'cancel' | 'link' | 'delete'
     size?: 'small' | 'large' | 'full'
   }>(),
   {
@@ -40,6 +40,10 @@ button:hover {
 .type-link {
   background-color: var(--color-white);
   color: var(--color-link);
+}
+
+.type-delete {
+  background-color: var(--color-cancel);
 }
 
 .size-full {

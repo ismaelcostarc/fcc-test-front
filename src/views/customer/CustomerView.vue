@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useCustomerStore } from '@/stores/customer/customer.store'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import BaseInputText from '@/components/BaseInputText.vue'
+import BaseInputDate from '@/components/BaseInputDate.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
+import BaseButton from '@/components/BaseButton.vue'
 import STATES from '@/utils/constants/states.constant'
+import SEX from '@/utils/constants/sex.constant'
 
 const customerStore = useCustomerStore()
 const { params } = useRoute()
@@ -13,7 +16,7 @@ const viewMode = ref(true)
 
 await customerStore.get(`${params.id}`)
 
-const customer = ref({
+const customer = reactive({
   ...customerStore.customer,
   endereco: { ...customerStore.customer?.endereco }
 })
@@ -23,125 +26,149 @@ const cancel = () => (viewMode.value = true)
 const remove = () => {}
 const goBack = () => router.push({ name: 'customerList' })
 const save = async () => {
-  await customerStore.edit(customer.value)
+  await customerStore.edit(customer)
   if (customerStore.statusCode == 200) {
     router.push({ name: 'customerList' })
   }
 }
 
 const states: [string, string][] = STATES.map((elem) => [elem, elem])
+const sex: [string, string][] = SEX.map((elem) => [elem, elem])
 </script>
 
 <template>
   <main>
     <header>
-      <button @click="goBack">Voltar</button>
+      <BaseButton @click="goBack" type="cancel">Voltar</BaseButton>
 
-      <div v-if="viewMode">
-        <div>{{ customer.nome }}</div>
+      <template v-if="viewMode">
+        <div class="button-group">
+          <BaseButton @click="edit" type="link">Editar</BaseButton>
+          <BaseButton @click="remove" type="delete">Apagar</BaseButton>
+        </div>
+      </template>
 
-        <button @click="edit">Editar</button>
-        <button @click="remove">Apagar</button>
-      </div>
-
-      <div v-else>
-        <label
-          >Nome:
-          <input type="text" v-model="customer.nome" :disabled="viewMode" />
-        </label>
-        <button @click="save">Salvar</button>
-        <button @click="cancel">Cancelar</button>
-      </div>
+      <template v-else>
+        <div class="button-group">
+          <BaseButton @click="save">Salvar</BaseButton>
+          <BaseButton @click="cancel" type="cancel">Cancelar</BaseButton>
+        </div>
+      </template>
     </header>
     <form>
-      <label
-        >CPF:
-        <BaseInputText mask="###.###.###-##" v-model="customer.cpf" :disabled="viewMode" />
-      </label>
+      <BaseInputText v-model="customer.nome" :disabled="viewMode" label="Nome:" />
 
-      <label
-        >RG:
-        <BaseInputText mask="#.###.###" v-model="customer.rg" :disabled="viewMode" />
-      </label>
+      <BaseInputText
+        mask="###.###.###-##"
+        v-model="customer.cpf"
+        :disabled="viewMode"
+        label="CPF:"
+      />
 
-      <label
-        >Data de expedição:
-        <input type="text" v-model="customer.dataExpedicao" :disabled="viewMode" />
-      </label>
+      <BaseInputText mask="#.###.###" v-model="customer.rg" :disabled="viewMode" label="RG:" />
 
-      <label
-        >Órgão de expedição:
-        <input type="text" v-model="customer.orgaoExpedicao" :disabled="viewMode" />
-      </label>
+      <BaseInputDate
+        v-model="customer.dataExpedicao"
+        :disabled="viewMode"
+        label="Data de expedição:"
+      />
 
-      <label
-        >Estado de expedição:
-        <BaseSelect v-model="customer.uf" :disabled="viewMode" :options="states" />
-      </label>
+      <BaseInputText
+        v-model="customer.orgaoExpedicao"
+        :disabled="viewMode"
+        label="Órgão de expedição:"
+      />
 
-      <label
-        >Data de nascimento:
-        <input type="text" v-model="customer.dataNascimento" :disabled="viewMode" />
-      </label>
+      <BaseSelect
+        v-model="customer.uf"
+        :disabled="viewMode"
+        :options="states"
+        label="Estado de expedição:"
+      />
 
-      <label
-        >Sexo:
-        <input type="text" v-model="customer.sexo" :disabled="viewMode" />
-      </label>
+      <BaseInputDate
+        v-model="customer.dataNascimento"
+        :disabled="viewMode"
+        label="Data de nascimento:"
+      />
 
-      <label
-        >Estado civil:
-        <input type="text" v-model="customer.estadoCivil" :disabled="viewMode" />
-      </label>
+      <BaseSelect v-model="customer.sexo" :disabled="viewMode" :options="sex" label="Sexo:" />
+
+      <BaseInputText v-model="customer.estadoCivil" :disabled="viewMode" label="Estado Civil:" />
+
+      <hr />
 
       <h2>Endereço</h2>
 
-      <label
-        >CEP:
-        <input type="text" v-model="customer.endereco.cep" :disabled="viewMode" />
-      </label>
+      <hr />
 
-      <label
-        >Logradouro:
-        <input type="text" v-model="customer.endereco.logradouro" :disabled="viewMode" />
-      </label>
+      <BaseInputText
+        mask="#####-###"
+        v-model="customer.endereco.cep"
+        :disabled="viewMode"
+        label="CEP:"
+      />
 
-      <label
-        >Número:
-        <input type="text" v-model="customer.endereco.numero" :disabled="viewMode" />
-      </label>
+      <BaseInputText
+        v-model="customer.endereco.logradouro"
+        :disabled="viewMode"
+        label="Logradouro:"
+      />
 
-      <label
-        >Complemento:
-        <input type="text" v-model="customer.endereco.complemento" :disabled="viewMode" />
-      </label>
+      <BaseInputText v-model="customer.endereco.numero" :disabled="viewMode" label="Número:" />
 
-      <label
-        >Bairro:
-        <input type="text" v-model="customer.endereco.bairro" :disabled="viewMode" />
-      </label>
+      <BaseInputText
+        v-model="customer.endereco.complemento"
+        :disabled="viewMode"
+        label="Complemento:"
+      />
 
-      <label
-        >Cidade:
-        <input type="text" v-model="customer.endereco.cidade" :disabled="viewMode" />
-      </label>
+      <BaseInputText v-model="customer.endereco.bairro" :disabled="viewMode" label="Bairro:" />
 
-      <label
-        >Estado:
-        <BaseSelect v-model="customer.endereco.uf" :disabled="viewMode" :options="states" />
-      </label>
+      <BaseInputText v-model="customer.endereco.cidade" :disabled="viewMode" label="Cidade:" />
+
+      <BaseSelect
+        v-model="customer.endereco.uf"
+        :disabled="viewMode"
+        :options="states"
+        label="Estado:"
+      />
     </form>
   </main>
 </template>
 
-<style>
+<style scoped>
+main {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  min-width: 600px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
-  gap: 2p;
-  width: 500px;
-  padding: 100px;
-  justify-content: center;
-  align-items: center;
+  gap: 0.5em;
+}
+
+.button-group {
+  display: flex;
+}
+
+hr {
+  border-top: 1px solid var(--color-light-gray);
+  width: 100%;
+}
+
+h2 {
+  font-weight: bold;
+  text-align: center;
 }
 </style>

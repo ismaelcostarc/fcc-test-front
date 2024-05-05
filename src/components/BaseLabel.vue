@@ -14,8 +14,8 @@ const props = defineProps<{
 <style scoped>
 .container {
   display: flex;
-  flex-direction: column;
   gap: 0.5em;
+  align-items: center;
 }
 
 label {
