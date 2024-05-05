@@ -6,6 +6,9 @@ import BaseInputText from '@/components/base/BaseInputText.vue'
 import BaseInputPassword from '@/components/base/BaseInputPassword.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseAlert from '@/components/base/BaseAlert.vue'
+import { useUserStore } from '@/stores/user/user.store'
+
+const userStore = useUserStore()
 
 const email = ref('')
 const password = ref('')
@@ -14,6 +17,7 @@ const isWrong = ref(false)
 
 const login = () => {
   if (email.value === user.email && password.value === user.password) {
+    userStore.isLogged = true
     router.push({ name: 'customerList' })
   } else isWrong.value = true
 }

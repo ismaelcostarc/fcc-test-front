@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import BaseButton from '@/components/base/BaseButton.vue'
 import router from '@/router'
+import { useUserStore } from '@/stores/user/user.store'
+
+const userStore = useUserStore()
 
 const logout = () => {
+  userStore.isLogged = false
   router.push({
-    name: ';ogin'
+    name: 'login'
   })
 }
 </script>

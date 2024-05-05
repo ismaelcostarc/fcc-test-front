@@ -1,3 +1,4 @@
+import { useUserStore } from '@/stores/user/user.store'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -31,6 +32,14 @@ const router = createRouter({
       component: () => import('../views/PageNotFoundView.vue')
     }
   ]
+})
+
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
+
+  if (!userStore.isLogged && to.name !== 'login') {
+    next({ name: 'login' })
+  } else next()
 })
 
 export default router
