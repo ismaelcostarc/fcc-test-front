@@ -5,12 +5,18 @@ import BaseSelect from '@/components/base/BaseSelect.vue'
 import type { Customer } from '@/types/customer.type'
 import STATES from '@/utils/constants/states.constant'
 import SEX from '@/utils/constants/sex.constant'
+import { withDefaults } from 'vue'
 
 const customer = defineModel<Customer>()
 
-const props = defineProps<{
-  viewMode?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    viewMode?: boolean
+  }>(),
+  {
+    viewMode: false
+  }
+)
 
 const states: [string, string][] = STATES.map((elem) => [elem, elem])
 const sex: [string, string][] = SEX.map((elem) => [elem, elem])
