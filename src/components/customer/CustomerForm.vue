@@ -3,8 +3,9 @@ import BaseInputText from '@/components/base/BaseInputText.vue'
 import BaseInputDate from '@/components/base/BaseInputDate.vue'
 import BaseSelect from '@/components/base/BaseSelect.vue'
 import type { Customer } from '@/types/customer.type'
-import { withDefaults } from 'vue'
+import { ref, watch, withDefaults } from 'vue'
 import { SEX, STATES } from '@/utils/constants.utils'
+import { testCPF } from '@/utils/functions.utils'
 
 const customer = defineModel<Customer>()
 
@@ -22,6 +23,15 @@ const states: [string, string][] = STATES.map((elem) => [elem, elem])
 const sex: [string, string][] = SEX.map((elem) => [elem, elem])
 
 const errorMsg = 'Campo obrigatório'
+
+const cpfIsValid = ref(true)
+
+watch(
+  () => customer.value?.cpf,
+  (value) => {
+    cpfIsValid.value = testCPF(value ?? '')
+  }
+)
 </script>
 
 <template>
@@ -37,9 +47,9 @@ const errorMsg = 'Campo obrigatório'
     mask="###.###.###-##"
     v-model="customer!.cpf"
     :disabled="props.viewMode"
-    :show-error="showErrors && !customer?.cpf"
+    :show-error="(showErrors && !customer?.cpf) || !cpfIsValid"
     label="CPF:"
-    :error-msg="errorMsg"
+    :error-msg="cpfIsValid ? errorMsg : 'Insira um cpf válido'"
   />
 
   <BaseInputText
