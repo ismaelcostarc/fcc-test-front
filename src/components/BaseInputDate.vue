@@ -9,15 +9,20 @@ const props = defineProps<{
 }>()
 const emit = defineEmits(['update:modelValue'])
 
+const zeroPad = (num: number) => {
+  if (num < 10) {
+    return '0' + num
+  } else return num
+}
+
 const formatedDate = computed(() => {
   const date = new Date(`${props.modelValue}`)
-  return date.toLocaleDateString().split('/').reverse().join('-')
+  return date.getFullYear() + '-' + zeroPad(date.getMonth() + 1) + '-' + zeroPad(date.getDate())
 })
 
 const handleInput = (event: Event) => {
-  const rawDate = new Date((event.target as HTMLSelectElement).value)
-  console.log(rawDate)
-  emit('update:modelValue', rawDate)
+  const rawDate = (event.target as HTMLInputElement).value + 'T00:00:00'
+  emit('update:modelValue', rawDate.toString())
 }
 </script>
 

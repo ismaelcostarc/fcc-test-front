@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import router from '@/router'
 import { addCustomerService } from '@/services/customer/addCustomer.service'
+import SEX from '@/utils/constants/sex.constant'
+import STATES from '@/utils/constants/states.constant'
+import BaseInputText from '@/components/BaseInputText.vue'
+import BaseInputDate from '@/components/BaseInputDate.vue'
+import BaseSelect from '@/components/BaseSelect.vue'
+import BaseButton from '@/components/BaseButton.vue'
 import { reactive } from 'vue'
 
 const customer = reactive({
@@ -31,109 +37,93 @@ const save = async () => {
     router.push({ name: 'customerList' })
   }
 }
+
+const states: [string, string][] = STATES.map((elem) => [elem, elem])
+const sex: [string, string][] = SEX.map((elem) => [elem, elem])
 </script>
 
 <template>
   <main>
     <header>
-      <button @click="goBack">Voltar</button>
+      <BaseButton @click="goBack" type="cancel">Voltar</BaseButton>
+
+      <BaseButton @click="save">Salvar</BaseButton>
     </header>
-    <form @submit.prevent="save">
-      <label
-        >Nome:
-        <input type="text" v-model="customer.nome" />
-      </label>
 
-      <label
-        >CPF:
-        <input type="text" v-model="customer.cpf" />
-      </label>
+    <form>
+      <BaseInputText v-model="customer.nome" label="Nome:" />
 
-      <label
-        >RG:
-        <input type="text" v-model="customer.rg" />
-      </label>
+      <BaseInputText mask="###.###.###-##" v-model="customer.cpf" label="CPF:" />
 
-      <label
-        >Data de expedição:
-        <input type="text" v-model="customer.dataExpedicao" />
-      </label>
+      <BaseInputText mask="#.###.###" v-model="customer.rg" label="RG:" />
 
-      <label
-        >Órgão de expedição:
-        <input type="text" v-model="customer.orgaoExpedicao" />
-      </label>
+      <BaseInputDate v-model="customer.dataExpedicao" label="Data de expedição:" />
 
-      <label
-        >Estado de expedição:
-        <input type="text" v-model="customer.uf" />
-      </label>
+      <BaseInputText v-model="customer.orgaoExpedicao" label="Órgão de expedição:" />
 
-      <label
-        >Data de nascimento:
-        <input type="text" v-model="customer.dataNascimento" />
-      </label>
+      <BaseSelect v-model="customer.uf" :options="states" label="Estado de expedição:" />
 
-      <label
-        >Sexo:
-        <input type="text" v-model="customer.sexo" />
-      </label>
+      <BaseInputDate v-model="customer.dataNascimento" label="Data de nascimento:" />
 
-      <label
-        >Estado civil:
-        <input type="text" v-model="customer.estadoCivil" />
-      </label>
+      <BaseSelect v-model="customer.sexo" :options="sex" label="Sexo:" />
+
+      <BaseInputText v-model="customer.estadoCivil" label="Estado Civil:" />
+
+      <hr />
 
       <h2>Endereço</h2>
 
-      <label
-        >CEP:
-        <input type="text" v-model="customer.endereco.cep" />
-      </label>
+      <hr />
 
-      <label
-        >Logradouro:
-        <input type="text" v-model="customer.endereco.logradouro" />
-      </label>
+      <BaseInputText mask="#####-###" v-model="customer.endereco.cep" label="CEP:" />
 
-      <label
-        >Número:
-        <input type="text" v-model="customer.endereco.numero" />
-      </label>
+      <BaseInputText v-model="customer.endereco.logradouro" label="Logradouro:" />
 
-      <label
-        >Complemento:
-        <input type="text" v-model="customer.endereco.complemento" />
-      </label>
+      <BaseInputText v-model="customer.endereco.numero" label="Número:" />
 
-      <label
-        >Bairro:
-        <input type="text" v-model="customer.endereco.bairro" />
-      </label>
+      <BaseInputText v-model="customer.endereco.complemento" label="Complemento:" />
 
-      <label
-        >Cidade:
-        <input type="text" v-model="customer.endereco.cidade" />
-      </label>
+      <BaseInputText v-model="customer.endereco.bairro" label="Bairro:" />
 
-      <label
-        >Estado:
-        <input type="text" v-model="customer.endereco.uf" />
-      </label>
+      <BaseInputText v-model="customer.endereco.cidade" label="Cidade:" />
 
-      <button type="submit">Salvar</button>
+      <BaseSelect v-model="customer.endereco.uf" :options="states" label="Estado:" />
     </form>
   </main>
 </template>
 
 <style scoped>
+main {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  min-width: 600px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
-  gap: 2em;
-  width: 500px;
-  padding: 100px;
-  justify-content: center;
-  align-items: center;
+  gap: 0.5em;
+}
+
+.button-group {
+  display: flex;
+}
+
+hr {
+  border-top: 1px solid var(--color-light-gray);
+  width: 100%;
+}
+
+h2 {
+  font-weight: bold;
+  text-align: center;
 }
 </style>
