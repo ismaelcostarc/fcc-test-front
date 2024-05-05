@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import BaseButton from '@/components/BaseButton.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 import router from '@/router'
 import { useCustomerListStore } from '@/stores/customer/customerList.store'
-import CustomerTable from '@/components/CustomerTable.vue'
-import CustomerModalDelete from '@/components/CustomerModalDelete.vue'
+import CustomerTable from '@/components/customer/CustomerTable.vue'
+import CustomerModalDelete from '@/components/customer/CustomerModalDelete.vue'
 import { useModal } from '@/composables/modal.composable'
 import { ref } from 'vue'
 

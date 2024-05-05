@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseLabel from '@/components/BaseLabel.vue'
+import BaseLabel from '@/components/base/BaseLabel.vue'
 
 const props = defineProps<{
   modelValue?: string

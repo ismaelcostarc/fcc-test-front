@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import BaseModal from '@/components/BaseModal.vue'
-import BaseButton from './BaseButton.vue'
+import BaseModal from '@/components/base/BaseModal.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 const emit = defineEmits(['delete', 'cancel'])
 </script>

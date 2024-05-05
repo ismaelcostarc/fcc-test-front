@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Customer } from '@/types/customer.type'
-import BaseTable from '@/components/BaseTable.vue'
+import BaseTable from '@/components/base/BaseTable.vue'
 import { computed } from 'vue'
 
 const props = defineProps<{

@@ -3,11 +3,11 @@ import router from '@/router'
 import { useCustomerStore } from '@/stores/customer/customer.store'
 import { reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import BaseInputText from '@/components/BaseInputText.vue'
-import BaseInputDate from '@/components/BaseInputDate.vue'
-import BaseSelect from '@/components/BaseSelect.vue'
-import BaseButton from '@/components/BaseButton.vue'
-import CustomerModalDelete from '@/components/CustomerModalDelete.vue'
+
+import BaseButton from '@/components/base/BaseButton.vue'
+import CustomerModalDelete from '@/components/customer/CustomerModalDelete.vue'
+import CustomerForm from '@/components/customer/CustomerForm.vue'
+
 import STATES from '@/utils/constants/states.constant'
 import SEX from '@/utils/constants/sex.constant'
 import { useModal } from '@/composables/modal.composable'
@@ -35,9 +35,6 @@ const save = async () => {
     router.push({ name: 'customerList' })
   }
 }
-
-const states: [string, string][] = STATES.map((elem) => [elem, elem])
-const sex: [string, string][] = SEX.map((elem) => [elem, elem])
 
 const deleteCustomer = async () => {
   modal.closeModal()
@@ -69,85 +66,7 @@ const deleteCustomer = async () => {
         </div>
       </template>
     </header>
-    <form>
-      <BaseInputText v-model="customer.nome" :disabled="viewMode" label="Nome:" />
-
-      <BaseInputText
-        mask="###.###.###-##"
-        v-model="customer.cpf"
-        :disabled="viewMode"
-        label="CPF:"
-      />
-
-      <BaseInputText mask="#.###.###" v-model="customer.rg" :disabled="viewMode" label="RG:" />
-
-      <BaseInputDate
-        v-model="customer.dataExpedicao"
-        :disabled="viewMode"
-        label="Data de expedição:"
-      />
-
-      <BaseInputText
-        v-model="customer.orgaoExpedicao"
-        :disabled="viewMode"
-        label="Órgão de expedição:"
-      />
-
-      <BaseSelect
-        v-model="customer.uf"
-        :disabled="viewMode"
-        :options="states"
-        label="Estado de expedição:"
-      />
-
-      <BaseInputDate
-        v-model="customer.dataNascimento"
-        :disabled="viewMode"
-        label="Data de nascimento:"
-      />
-
-      <BaseSelect v-model="customer.sexo" :disabled="viewMode" :options="sex" label="Sexo:" />
-
-      <BaseInputText v-model="customer.estadoCivil" :disabled="viewMode" label="Estado Civil:" />
-
-      <hr />
-
-      <h2>Endereço</h2>
-
-      <hr />
-
-      <BaseInputText
-        mask="#####-###"
-        v-model="customer.endereco.cep"
-        :disabled="viewMode"
-        label="CEP:"
-      />
-
-      <BaseInputText
-        v-model="customer.endereco.logradouro"
-        :disabled="viewMode"
-        label="Logradouro:"
-      />
-
-      <BaseInputText v-model="customer.endereco.numero" :disabled="viewMode" label="Número:" />
-
-      <BaseInputText
-        v-model="customer.endereco.complemento"
-        :disabled="viewMode"
-        label="Complemento:"
-      />
-
-      <BaseInputText v-model="customer.endereco.bairro" :disabled="viewMode" label="Bairro:" />
-
-      <BaseInputText v-model="customer.endereco.cidade" :disabled="viewMode" label="Cidade:" />
-
-      <BaseSelect
-        v-model="customer.endereco.uf"
-        :disabled="viewMode"
-        :options="states"
-        label="Estado:"
-      />
-    </form>
+    <CustomerForm v-model="customer" :view-mode="viewMode" />
   </main>
 
   <CustomerModalDelete
@@ -170,25 +89,5 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-}
-
-.button-group {
-  display: flex;
-}
-
-hr {
-  border-top: 1px solid var(--color-light-gray);
-  width: 100%;
-}
-
-h2 {
-  font-weight: bold;
-  text-align: center;
 }
 </style>

@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 import user from '@/user.json'
 import router from '@/router'
-import BaseInputText from '@/components/BaseInputText.vue'
-import BaseInputPassword from '@/components/BaseInputPassword.vue'
-import BaseButton from '@/components/BaseButton.vue'
-import BaseAlert from '@/components/BaseAlert.vue'
+import BaseInputText from '@/components/base/BaseInputText.vue'
+import BaseInputPassword from '@/components/base/BaseInputPassword.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseAlert from '@/components/base/BaseAlert.vue'
 
 const email = ref('')
 const password = ref('')
