@@ -6,6 +6,7 @@ import type { Customer } from '@/types/customer.type'
 import { ref, watch, withDefaults } from 'vue'
 import { SEX, STATES } from '@/utils/constants.utils'
 import { testCPF } from '@/utils/functions.utils'
+import { getCEP } from '@/services/via-cep/getCEP.service'
 
 const customer = defineModel<Customer>()
 
@@ -30,6 +31,23 @@ watch(
   () => customer.value?.cpf,
   (value) => {
     cpfIsValid.value = testCPF(value ?? '')
+  }
+)
+
+watch(
+  () => customer.value?.endereco?.cep,
+  async (value) => {
+    if (value && value.length > 7) {
+      const data = await getCEP(value ?? '')
+
+      if (customer?.value?.endereco) {
+        customer.value.endereco.bairro = data.bairro
+        customer.value.endereco.cidade = data.localidade
+        customer.value.endereco.logradouro = data.logradouro
+        customer.value.endereco.complemento = data.complemento
+        customer.value.endereco.uf = data.uf
+      }
+    }
   }
 )
 </script>
