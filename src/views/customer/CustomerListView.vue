@@ -6,6 +6,9 @@ import CustomerTable from '@/components/customer/CustomerTable.vue'
 import CustomerModalDelete from '@/components/customer/CustomerModalDelete.vue'
 import { useModal } from '@/composables/modal.composable'
 import { ref } from 'vue'
+import BaseSelect from '@/components/base/BaseSelect.vue'
+import { FilterOptions } from '@/utils/enums.utils'
+import BaseInputText from '@/components/base/BaseInputText.vue'
 
 const modal = useModal()
 const customerListStore = useCustomerListStore()
@@ -34,6 +37,13 @@ const deleteCustomer = () => {
   modal.closeModal()
   customerListStore.remove(customerToDelete.value)
 }
+
+const filterOptions: [string, string][] = [
+  [FilterOptions.NAME, 'Nome'],
+  [FilterOptions.CPF, 'CPF']
+]
+const filterBy = ref(FilterOptions.NAME)
+const searchFor = ref('')
 </script>
 
 <template>
@@ -41,6 +51,12 @@ const deleteCustomer = () => {
     <header>
       <BaseButton @click="goCreate">Criar novo</BaseButton>
     </header>
+
+    <div>
+      <div>Filtrar por</div>
+      <BaseSelect :options="filterOptions" v-model="filterBy" />
+      <BaseInputText v-model="searchFor" />
+    </div>
 
     <CustomerTable
       :customer-list="customerListStore.list"

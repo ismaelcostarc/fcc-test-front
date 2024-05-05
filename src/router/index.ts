@@ -1,4 +1,3 @@
-import { useUserStore } from '@/stores/user/user.store'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -35,9 +34,9 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const userStore = useUserStore()
+  const user: { isLogged: boolean } = JSON.parse(localStorage.getItem('user') ?? '')
 
-  if (!userStore.isLogged && to.name !== 'login') {
+  if (!user.isLogged && to.name !== 'login') {
     next({ name: 'login' })
   } else next()
 })
