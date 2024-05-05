@@ -33,3 +33,12 @@ export const testCPF = (strCPF: string) => {
   if (rest != parseInt(strCPF.substring(10, 11))) return false
   return true
 }
+
+export const isDateEqualToOrBeforeToday = (date: Date) => {
+  const today = new Date()
+
+  date.setHours(0, 0, 0, 0)
+  today.setHours(0, 0, 0, 0)
+
+  return date <= today
+}

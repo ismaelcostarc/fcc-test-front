@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import BaseLabel from '@/components/base/BaseLabel.vue'
+import { isDateEqualToOrBeforeToday } from '@/utils/functions.utils'
 
 const props = defineProps<{
   modelValue?: string
@@ -26,6 +27,16 @@ const handleInput = (event: Event) => {
   const rawDate = (event.target as HTMLInputElement).value + 'T00:00:00'
   emit('update:modelValue', rawDate.toString())
 }
+
+const isValidDate = ref(true)
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    const date = new Date(`${value}`)
+    isValidDate.value = isDateEqualToOrBeforeToday(date)
+  }
+)
 </script>
 
 <template>
@@ -35,10 +46,12 @@ const handleInput = (event: Event) => {
       :id="props.label"
       :value="formatedDate"
       :disabled="props.disabled"
-      :class="{ error: showError }"
+      :class="{ error: showError || !isValidDate }"
       @input="handleInput"
     />
-    <div class="error-msg" v-if="showError">{{ errorMsg }}</div>
+    <div class="error-msg" v-if="showError || !isValidDate">
+      {{ isValidDate ? errorMsg : 'Insira uma data anterior a hoje.' }}
+    </div>
   </BaseLabel>
 </template>
 
