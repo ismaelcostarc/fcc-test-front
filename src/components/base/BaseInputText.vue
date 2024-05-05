@@ -8,6 +8,8 @@ const props = defineProps<{
   modelValue?: string
   disabled?: boolean
   label?: string
+  errorMsg?: string
+  showError?: boolean
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -27,8 +29,10 @@ const boundObject = reactive({
       :data-maska="props.mask"
       :value="props.modelValue"
       :disabled="props.disabled"
+      :class="{ error: showError }"
       @input="emit('update:modelValue', boundObject.unmasked)"
     />
+    <div class="error-msg" v-if="showError">{{ errorMsg }}</div>
   </BaseLabel>
 </template>
 
@@ -43,5 +47,14 @@ input:disabled {
   border: 2px solid transparent;
   background-color: transparent;
   font-weight: 500;
+}
+
+.error {
+  border: 2px solid var(--color-error);
+}
+
+.error-msg {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
 }
 </style>

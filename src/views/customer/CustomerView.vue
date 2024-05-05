@@ -8,8 +8,6 @@ import BaseButton from '@/components/base/BaseButton.vue'
 import CustomerModalDelete from '@/components/customer/CustomerModalDelete.vue'
 import CustomerForm from '@/components/customer/CustomerForm.vue'
 
-import STATES from '@/utils/constants/states.constant'
-import SEX from '@/utils/constants/sex.constant'
 import { useModal } from '@/composables/modal.composable'
 
 const customerStore = useCustomerStore()

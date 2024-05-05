@@ -2,8 +2,9 @@
 import router from '@/router'
 import { addCustomerService } from '@/services/customer/addCustomer.service'
 import BaseButton from '@/components/base/BaseButton.vue'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import CustomerForm from '@/components/customer/CustomerForm.vue'
+import { objectHasEmptyFields } from '@/utils/functions.utils'
 
 const customer = reactive({
   cpf: '',
@@ -27,7 +28,14 @@ const customer = reactive({
 })
 
 const goBack = () => router.push({ name: 'customerList' })
+
+const hasEmptyFields = ref(false)
 const save = async () => {
+  if (objectHasEmptyFields(customer) || objectHasEmptyFields(customer.endereco)) {
+    hasEmptyFields.value = true
+    return
+  }
+
   const { status } = await addCustomerService(customer)
   if (status == 200) {
     router.push({ name: 'customerList' })
@@ -43,7 +51,7 @@ const save = async () => {
       <BaseButton @click="save">Salvar</BaseButton>
     </header>
 
-    <CustomerForm v-model="customer" />
+    <CustomerForm v-model="customer" :show-errors="hasEmptyFields" />
   </main>
 </template>
 

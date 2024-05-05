@@ -1,4 +1,6 @@
-const STATES = [
+export const SEX = ['Masculino', 'Feminino']
+
+export const STATES = [
   'AC',
   'AL',
   'AP',
@@ -27,5 +29,3 @@ const STATES = [
   'SE',
   'TO'
 ]
-
-export default STATES

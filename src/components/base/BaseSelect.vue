@@ -6,6 +6,8 @@ const props = defineProps<{
   disabled?: boolean
   options?: [string, string][]
   label?: string
+  errorMsg?: string
+  showError?: boolean
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -16,9 +18,15 @@ const onChange = (event: Event) => {
 
 <template>
   <BaseLabel :label="props.label">
-    <select :disabled="props.disabled" @change="onChange" :value="props.modelValue">
+    <select
+      :disabled="props.disabled"
+      @change="onChange"
+      :value="props.modelValue"
+      :class="{ error: showError }"
+    >
       <option v-for="item in options" :key="item[0]" :value="item[1]">{{ item[0] }}</option>
     </select>
+    <div class="error-msg" v-if="showError">{{ errorMsg }}</div>
   </BaseLabel>
 </template>
 
@@ -36,5 +44,14 @@ select:disabled {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
+}
+
+.error {
+  border: 2px solid var(--color-error);
+}
+
+.error-msg {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
 }
 </style>
