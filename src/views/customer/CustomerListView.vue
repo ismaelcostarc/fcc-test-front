@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import BaseButton from '@/components/BaseButton.vue'
 import router from '@/router'
 import { useCustomerListStore } from '@/stores/customer/customerList.store'
+import CustomerTable from '@/components/CustomerTable.vue'
 
 const customerListStore = useCustomerListStore()
 
@@ -17,28 +19,34 @@ const goCustomer = (id?: string) => {
 const goCreate = () => {
   router.push({ name: 'customerCreate' })
 }
-const deleteCustomer = () => {}
+const deleteCustomer = (id?: string) => {}
 </script>
 
 <template>
   <main>
     <header>
-      <button @click="goCreate">Criar novo</button>
+      <BaseButton @click="goCreate">Criar novo</BaseButton>
     </header>
-    <table>
-      <tr>
-        <th>CPF</th>
-        <th>Nome</th>
-        <th></th>
-        <th></th>
-      </tr>
 
-      <tr v-for="customer in customerListStore.list" :key="customer.clienteId">
-        <td>{{ customer.cpf }}</td>
-        <td>{{ customer.nome }}</td>
-        <th><button @click="goCustomer(customer.clienteId)">Visualizar</button></th>
-        <th><button @click="deleteCustomer()">Excluir</button></th>
-      </tr>
-    </table>
+    <CustomerTable
+      :customer-list="customerListStore.list"
+      @go-customer="goCustomer"
+      @delete-customer="deleteCustomer"
+    />
   </main>
 </template>
+
+<style scoped>
+main {
+  padding: 1em;
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+header {
+  display: flex;
+  flex-direction: row-reverse;
+}
+</style>
