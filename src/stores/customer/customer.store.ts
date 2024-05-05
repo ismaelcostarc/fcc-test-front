@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import type { Customer } from '@/types/customer.type'
 import { getCustomerByIdService } from '@/services/customer/getCustomerById.service'
 import { editCustomerService } from '@/services/customer/editCustomer.service'
+import { deleteCustomerService } from '@/services/customer/deleteCustomer.service'
 
 export const useCustomerStore = defineStore('customer', () => {
   const customer = ref<Customer>()
@@ -18,7 +19,10 @@ export const useCustomerStore = defineStore('customer', () => {
     statusCode.value = status
   }
 
-  const remove = async (id: string) => {}
+  const remove = async () => {
+    const { status } = await deleteCustomerService(customer.value?.clienteId ?? '')
+    statusCode.value = status
+  }
 
   return {
     customer,

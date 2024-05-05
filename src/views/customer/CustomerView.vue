@@ -7,11 +7,15 @@ import BaseInputText from '@/components/BaseInputText.vue'
 import BaseInputDate from '@/components/BaseInputDate.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import BaseButton from '@/components/BaseButton.vue'
+import CustomerModalDelete from '@/components/CustomerModalDelete.vue'
 import STATES from '@/utils/constants/states.constant'
 import SEX from '@/utils/constants/sex.constant'
+import { useModal } from '@/composables/modal.composable'
 
 const customerStore = useCustomerStore()
 const { params } = useRoute()
+const modal = useModal()
+
 const viewMode = ref(true)
 
 await customerStore.get(`${params.id}`)
@@ -23,7 +27,7 @@ const customer = reactive({
 
 const edit = () => (viewMode.value = false)
 const cancel = () => (viewMode.value = true)
-const remove = () => {}
+const remove = () => (modal.modalIsVisible.value = true)
 const goBack = () => router.push({ name: 'customerList' })
 const save = async () => {
   await customerStore.edit(customer)
@@ -34,6 +38,16 @@ const save = async () => {
 
 const states: [string, string][] = STATES.map((elem) => [elem, elem])
 const sex: [string, string][] = SEX.map((elem) => [elem, elem])
+
+const deleteCustomer = async () => {
+  modal.closeModal()
+  await customerStore.remove()
+  if (customerStore.statusCode == 200) {
+    router.push({
+      name: 'customerList'
+    })
+  }
+}
 </script>
 
 <template>
@@ -135,6 +149,12 @@ const sex: [string, string][] = SEX.map((elem) => [elem, elem])
       />
     </form>
   </main>
+
+  <CustomerModalDelete
+    v-if="modal.modalIsVisible.value"
+    @cancel="modal.closeModal"
+    @delete="deleteCustomer"
+  />
 </template>
 
 <style scoped>
