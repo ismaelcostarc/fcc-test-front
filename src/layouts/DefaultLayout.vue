@@ -44,7 +44,13 @@ header {
 h1 {
   color: var(--color-white);
   font-weight: bold;
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-md);
+}
+
+@media screen and (min-width: 768px) {
+  h1 {
+    font-size: var(--font-size-lg);
+  }
 }
 
 main {

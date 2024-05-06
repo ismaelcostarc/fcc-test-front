@@ -83,7 +83,6 @@ const options: [string, string][] = [
 <style scoped>
 main {
   padding: 1em;
-  width: 80vw;
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -104,5 +103,11 @@ header {
 
 .filter__container > div {
   font-size: var(--font-size-sm);
+}
+
+@media screen and (min-width: 768px) {
+  main {
+    width: 80vw;
+  }
 }
 </style>

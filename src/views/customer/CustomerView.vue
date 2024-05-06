@@ -109,7 +109,6 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1.5em;
-  min-width: 600px;
 }
 
 header {
@@ -132,5 +131,11 @@ header {
   width: 100%;
   font-size: var(--font-size-sm);
   color: var(--color-cancel);
+}
+
+@media screen and (min-width: 768px) {
+  main {
+    min-width: 600px;
+  }
 }
 </style>
