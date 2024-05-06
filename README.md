@@ -1,45 +1,23 @@
 # fcc-test-front
 
-This template should help get you started developing with Vue 3 in Vite.
+Pequeno projeto de um CRUD de clientes em Vue.js 3.
 
-## Recommended IDE Setup
+## Instalação:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+Versão do Node utilizada: v20.5.1
 
 ```sh
 yarn
 ```
 
-### Compile and Hot-Reload for Development
+### Para rodar o projeto:
 
 ```sh
 yarn dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-yarn build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### Executar os testes unitários:
 
 ```sh
 yarn test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-yarn lint
 ```
