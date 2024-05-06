@@ -105,10 +105,10 @@ const deleteCustomer = async () => {
 
 <style scoped>
 main {
-  padding: 1em;
+  padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
+  gap: var(--spacing-xl);
 }
 
 header {
@@ -123,7 +123,7 @@ header {
 
 .container {
   display: flex;
-  gap: 0.5em;
+  gap: var(--spacing-md);
   align-items: center;
 }
 

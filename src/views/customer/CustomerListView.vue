@@ -82,10 +82,10 @@ const options: [string, string][] = [
 
 <style scoped>
 main {
-  padding: 1em;
+  padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--spacing-lg);
 }
 
 header {
@@ -98,7 +98,7 @@ header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--spacing-md);
 }
 
 .filter__container > div {

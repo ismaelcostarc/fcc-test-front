@@ -27,7 +27,7 @@ const emit = defineEmits(['update:modelValue'])
 
 <style scoped>
 input {
-  padding: 0.5em;
+  padding: var(--spacing-md);
 }
 
 .error {

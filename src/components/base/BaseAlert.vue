@@ -16,7 +16,7 @@ const props = withDefaults(
 <style scoped>
 .alert {
   width: 100%;
-  padding: 1em;
+  padding: var(--spacing-lg);
   color: var(--color-white);
   font-size: var(--font-size-sm);
 }

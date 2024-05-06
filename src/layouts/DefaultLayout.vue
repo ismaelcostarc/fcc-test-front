@@ -49,7 +49,7 @@ header {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2em;
+  padding: 0 var(--spacing-xxl);
 }
 
 h1 {
@@ -70,7 +70,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: start;
-  padding: 2em 0;
+  padding: var(--spacing-xxl) 0;
 }
 
 main div {
@@ -85,7 +85,7 @@ footer {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2em;
+  padding: 0 var(--spacing-xxl);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-md);
 }

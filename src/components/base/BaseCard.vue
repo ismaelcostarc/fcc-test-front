@@ -7,7 +7,7 @@
 <style scoped>
 .card {
   background-color: var(--color-white);
-  padding: 2em;
+  padding: var(--spacing-xxl);
   display: flex;
   flex-direction: column;
   -webkit-border-radius: 10px;

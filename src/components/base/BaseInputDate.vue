@@ -57,7 +57,7 @@ watch(
 
 <style scoped>
 input {
-  height: 2em;
+  height: var(--spacing-xxl);
   font-weight: 400;
 }
 

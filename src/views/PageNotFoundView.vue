@@ -21,7 +21,7 @@ const goHome = () => {
 .container {
   display: flex;
   flex-direction: column;
-  gap: 2em;
-  padding: 2em;
+  gap: var(--spacing-xxl);
+  padding: var(--spacing-xxl);
 }
 </style>

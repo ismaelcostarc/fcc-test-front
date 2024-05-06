@@ -34,7 +34,7 @@ const onChange = (event: Event) => {
 select {
   min-height: 2.3em;
   font-weight: 400;
-  padding: 0 0.5em;
+  padding: 0 var(--spacing-md);
 }
 
 select:disabled {

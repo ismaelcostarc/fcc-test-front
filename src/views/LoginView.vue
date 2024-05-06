@@ -40,6 +40,6 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1em;
+  gap: var(--spacing-lg);
 }
 </style>

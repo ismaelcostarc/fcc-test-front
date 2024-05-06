@@ -14,7 +14,7 @@ const props = defineProps<{
 <style scoped>
 .container {
   display: flex;
-  gap: 0.5em;
+  gap: var(--spacing-md);
   align-items: center;
 }
 

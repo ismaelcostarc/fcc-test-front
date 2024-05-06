@@ -36,7 +36,7 @@ const emit = defineEmits(['delete', 'cancel'])
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 1em;
+  gap: var(--spacing-lg);
   align-items: center;
 }
 </style>

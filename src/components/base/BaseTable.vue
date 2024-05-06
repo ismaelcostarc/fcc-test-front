@@ -77,7 +77,7 @@ th {
 }
 
 .empty-table {
-  padding: 2em;
+  padding: var(--spacing-xxl);
   text-align: center;
   font-size: var(--font-size-lg);
   color: var(--color-gray);
