@@ -15,3 +15,8 @@ yarn
 ```sh
 yarn dev
 ```
+
+#### Usuário:
+
+- E-mail: user@email.com
+- Senha: 123
