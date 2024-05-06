@@ -47,7 +47,9 @@ const options: [string, string][] = [
 <template>
   <main>
     <header>
-      <BaseButton @click="goCreate">Criar novo</BaseButton>
+      <BaseButton @click="goCreate"
+        >Criar novo <font-awesome-icon :icon="['fas', 'plus']"
+      /></BaseButton>
     </header>
 
     <div class="filter__container">

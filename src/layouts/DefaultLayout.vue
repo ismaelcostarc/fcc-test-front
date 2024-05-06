@@ -13,7 +13,9 @@ const logout = () => {
 <template>
   <header>
     <h1>Sistema de gerenciamento de clientes</h1>
-    <BaseButton @click="logout">Sair</BaseButton>
+    <BaseButton @click="logout"
+      >Sair <font-awesome-icon :icon="['fas', 'right-from-bracket']" />
+    </BaseButton>
   </header>
   <main>
     <div><slot></slot></div>

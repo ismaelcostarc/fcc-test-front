@@ -27,7 +27,9 @@ const emit = defineEmits(['action'])
       <td class="action-cell">
         <BaseDropdown>
           <template #label>
-            <BaseButton size="full" type="cancel"> Ações </BaseButton>
+            <BaseButton size="full" type="cancel">
+              <font-awesome-icon :icon="['fas', 'chevron-down']" />
+            </BaseButton>
           </template>
 
           <template #content>

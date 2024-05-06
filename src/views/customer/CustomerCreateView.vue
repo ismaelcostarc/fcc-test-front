@@ -46,7 +46,9 @@ const save = async () => {
 <template>
   <main>
     <header>
-      <BaseButton @click="goBack" type="cancel">Voltar</BaseButton>
+      <BaseButton @click="goBack" type="cancel"
+        ><font-awesome-icon :icon="['fas', 'arrow-left']"
+      /></BaseButton>
 
       <div class="container">
         <div v-if="hasEmptyFields" class="warning">

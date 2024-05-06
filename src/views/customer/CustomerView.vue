@@ -65,12 +65,16 @@ const deleteCustomer = async () => {
 <template>
   <main>
     <header>
-      <BaseButton @click="goBack" type="cancel">Voltar</BaseButton>
+      <BaseButton @click="goBack" type="cancel"
+        ><font-awesome-icon :icon="['fas', 'arrow-left']"
+      /></BaseButton>
 
       <template v-if="viewMode">
         <div class="button-group">
           <BaseButton @click="edit" type="link">Editar</BaseButton>
-          <BaseButton @click="remove" type="delete">Apagar</BaseButton>
+          <BaseButton @click="remove" type="delete"
+            ><font-awesome-icon :icon="['fas', 'trash-can']"
+          /></BaseButton>
         </div>
       </template>
 
@@ -81,7 +85,9 @@ const deleteCustomer = async () => {
               Confira se todos os campos<br />
               estão preenchidos corretamente
             </div>
-            <BaseButton @click="save">Salvar</BaseButton>
+            <BaseButton @click="save"
+              >Salvar <font-awesome-icon :icon="['fas', 'floppy-disk']"
+            /></BaseButton>
           </div>
           <BaseButton @click="cancel" type="cancel">Cancelar</BaseButton>
         </div>
