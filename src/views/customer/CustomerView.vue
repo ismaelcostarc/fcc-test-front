@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useCustomerStore } from '@/stores/customer/customer.store'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 import BaseButton from '@/components/base/BaseButton.vue'
