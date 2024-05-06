@@ -19,6 +19,12 @@ const emit = defineEmits(['action'])
       <th></th>
     </tr>
 
+    <tr v-if="props.data?.length === 0">
+      <td colspan="3">
+        <div class="empty-table">Tabela vazia</div>
+      </td>
+    </tr>
+
     <tr v-for="row in props.data" :key="row[0]">
       <template v-for="(data, index) in row" :key="data">
         <td v-if="index !== row.length - 1">{{ data }}</td>
@@ -69,5 +75,12 @@ th {
   padding: 0.75em;
   font-weight: bold;
   background-color: var(--color-light-gray);
+}
+
+.empty-table {
+  padding: 2em;
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--color-gray);
 }
 </style>
