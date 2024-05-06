@@ -15,9 +15,3 @@ yarn
 ```sh
 yarn dev
 ```
-
-### Executar os testes unitários:
-
-```sh
-yarn test:unit
-```

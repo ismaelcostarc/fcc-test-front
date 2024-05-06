@@ -8,21 +8,21 @@ import { objectHasEmptyFields } from '@/utils/functions.utils'
 
 const customer = reactive({
   cpf: '',
-  nome: 'Nome',
+  nome: '',
   rg: '',
   dataExpedicao: '2018-02-10T00:00:00',
-  orgaoExpedicao: 'SSP',
-  uf: 'PI',
+  orgaoExpedicao: '',
+  uf: 'SP',
   dataNascimento: '1990-02-10T00:00:00',
   sexo: 'Masculino',
-  estadoCivil: 'Solteiro',
+  estadoCivil: '',
   endereco: {
-    cep: '77021-702',
-    logradouro: 'Rua',
-    numero: '1',
-    complemento: '2',
-    bairro: 'Bairro tal',
-    cidade: 'Cidade tal',
+    cep: '',
+    logradouro: '',
+    numero: '',
+    complemento: '',
+    bairro: '',
+    cidade: '',
     uf: 'SP'
   }
 })

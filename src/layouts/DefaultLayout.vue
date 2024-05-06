@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import BaseButton from '@/components/base/BaseButton.vue'
+import BaseModal from '@/components/base/BaseModal.vue'
 import router from '@/router'
+import { useLayoutStore } from '@/stores/layout/layout.store'
 
 const logout = () => {
   localStorage.setItem('user', JSON.stringify({ isLogged: false }))
@@ -9,6 +11,8 @@ const logout = () => {
     name: 'login'
   })
 }
+
+const useLayout = useLayoutStore()
 </script>
 <template>
   <header>
@@ -28,6 +32,13 @@ const logout = () => {
       CEP: 01234-567
     </div>
   </footer>
+
+  <BaseModal v-if="useLayout.modal.modalIsVisible">
+    <div class="modal__container">
+      <div class="modal__title">{{ useLayout.modal.message }}</div>
+      <BaseButton type="delete" size="full" @click="useLayout.modal.closeModal">Fechar</BaseButton>
+    </div>
+  </BaseModal>
 </template>
 
 <style scoped>
@@ -77,5 +88,17 @@ footer {
   padding: 0 2em;
   font-size: var(--font-size-sm);
   line-height: var(--line-height-md);
+}
+
+.modal__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+}
+
+.modal__title {
+  font-size: var(--font-size-lg);
+  text-align: center;
 }
 </style>
