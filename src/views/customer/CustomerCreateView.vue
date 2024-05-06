@@ -48,9 +48,12 @@ const save = async () => {
     <header>
       <BaseButton @click="goBack" type="cancel">Voltar</BaseButton>
 
-      <div>
+      <div class="container">
+        <div v-if="hasEmptyFields" class="warning">
+          Confira se todos os campos<br />
+          estão preenchidos corretamente
+        </div>
         <BaseButton @click="save">Salvar</BaseButton>
-        <div v-if="hasEmptyFields">Confira se todos os campos estão preenchidos corretamente</div>
       </div>
     </header>
 
@@ -71,5 +74,17 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.container {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.warning {
+  width: 100%;
+  font-size: var(--font-size-sm);
+  color: var(--color-cancel);
 }
 </style>

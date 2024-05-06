@@ -9,6 +9,7 @@ import CustomerModalDelete from '@/components/customer/CustomerModalDelete.vue'
 import CustomerForm from '@/components/customer/CustomerForm.vue'
 
 import { useModal } from '@/composables/modal.composable'
+import { objectHasEmptyFields } from '@/utils/functions.utils'
 
 const customerStore = useCustomerStore()
 const { params } = useRoute()
@@ -18,17 +19,33 @@ const viewMode = ref(true)
 
 await customerStore.get(`${params.id}`)
 
-const customer = reactive({
+const customer = ref({
   ...customerStore.customer,
   endereco: { ...customerStore.customer?.endereco }
 })
 
+const hasEmptyFields = ref(false)
+
 const edit = () => (viewMode.value = false)
-const cancel = () => (viewMode.value = true)
+const cancel = async () => {
+  await customerStore.get(`${params.id}`)
+
+  customer.value = {
+    ...customerStore.customer,
+    endereco: { ...customerStore.customer?.endereco }
+  }
+
+  viewMode.value = true
+}
 const remove = () => (modal.modalIsVisible.value = true)
 const goBack = () => router.push({ name: 'customerList' })
 const save = async () => {
-  await customerStore.edit(customer)
+  if (objectHasEmptyFields(customer) || objectHasEmptyFields(customer.value.endereco)) {
+    hasEmptyFields.value = true
+    return
+  }
+
+  await customerStore.edit(customer.value)
   if (customerStore.statusCode == 200) {
     router.push({ name: 'customerList' })
   }
@@ -59,12 +76,18 @@ const deleteCustomer = async () => {
 
       <template v-else>
         <div class="button-group">
-          <BaseButton @click="save">Salvar</BaseButton>
+          <div class="container">
+            <div v-if="hasEmptyFields" class="warning">
+              Confira se todos os campos<br />
+              estão preenchidos corretamente
+            </div>
+            <BaseButton @click="save">Salvar</BaseButton>
+          </div>
           <BaseButton @click="cancel" type="cancel">Cancelar</BaseButton>
         </div>
       </template>
     </header>
-    <CustomerForm v-model="customer" :view-mode="viewMode" />
+    <CustomerForm v-model="customer" :view-mode="viewMode" :show-errors="hasEmptyFields" />
   </main>
 
   <CustomerModalDelete
@@ -87,5 +110,21 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.button-group {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.warning {
+  width: 100%;
+  font-size: var(--font-size-sm);
+  color: var(--color-cancel);
 }
 </style>
