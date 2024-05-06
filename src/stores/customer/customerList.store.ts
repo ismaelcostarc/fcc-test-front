@@ -31,7 +31,9 @@ export const useCustomerListStore = defineStore('customerList', () => {
       }
 
       if (filterBy.value === FilterOptions.NAME) {
-        list.value = list.value?.filter((elem) => elem.nome?.includes(value))
+        list.value = list.value?.filter((elem) =>
+          elem.nome?.toLowerCase()?.includes(value.toLowerCase())
+        )
       }
 
       if (filterBy.value === FilterOptions.CPF) {
